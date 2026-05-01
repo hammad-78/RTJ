@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
     setupSmoothScroll();
     setupCounters();
     setupProgressBars();
+    setupCurrentFocusSlider();
+    setupCurrentFocusLightbox();
     setupTestimonials();
     setupManualDonation();
     setupVolunteerForm();
     setupContactForm();
+    setupCampaignImageLightbox();
     setupGalleryLightbox();
     setupFooterYear();
     setupNewsletterForms();
@@ -115,6 +118,149 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   
     bars.forEach((bar) => observer.observe(bar));
+  }
+
+  /* Current Focus (hero card) campaigns slider */
+
+  function setupCurrentFocusSlider() {
+    const root = document.querySelector('[data-focus-slider]');
+    if (!root) return;
+
+    const viewport = root.querySelector('.focus-slider-viewport');
+    const track = root.querySelector('.focus-slider-track');
+    const dots = root.querySelector('.focus-slider-dots');
+    const prevBtn = root.querySelector('.focus-slider-nav.prev');
+    const nextBtn = root.querySelector('.focus-slider-nav.next');
+
+    if (!viewport || !track || !dots || !prevBtn || !nextBtn) return;
+
+    // Keep this array as the single source of truth for what shows in the home hero.
+    // These match the "Active Campaigns" items in `campaigns.html`.
+    const campaigns = [
+      {
+        title: 'Stipend Distribution Drive',
+        image: '../ongoing_campaigns/live-1.jpeg',
+      },
+      {
+        title: 'RTJ Karvan Shuttle Service',
+        image: '../ongoing_campaigns/live-2.jpeg',
+      },
+      {
+        title: 'RTJ Car Rental Support',
+        image: '../ongoing_campaigns/live-3.jpeg',
+      },
+      {
+        title: 'RTJ Shelter Home',
+        image: '../ongoing_campaigns/live-4.jpeg',
+      },
+      {
+        title: 'Urgent Medical Assistance Required',
+        image: '../ongoing_campaigns/live-5.jpeg',
+      },
+      {
+        title: 'Educational Support Appeal',
+        image: '../ongoing_campaigns/live-6.jpeg',
+      },
+    ];
+
+    if (!campaigns.length) return;
+
+    let index = 0;
+    const AUTOPLAY_MS = 4500;
+    let autoplayId = null;
+    let isPaused = false;
+
+    const clampIndex = (i) => (i + campaigns.length) % campaigns.length;
+
+    const render = () => {
+      track.innerHTML = '';
+      dots.innerHTML = '';
+
+      campaigns.forEach((c, i) => {
+        const slide = document.createElement('a');
+        slide.className = 'focus-slide';
+        slide.href = 'campaigns.html';
+        slide.setAttribute('aria-label', `View campaign: ${c.title}`);
+
+        const img = document.createElement('img');
+        img.src = c.image;
+        img.alt = c.title;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        img.decoding = 'async';
+
+        const caption = document.createElement('div');
+        caption.className = 'focus-caption';
+        caption.textContent = c.title;
+
+        slide.appendChild(img);
+        slide.appendChild(caption);
+        track.appendChild(slide);
+
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'focus-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}: ${c.title}`);
+        dot.addEventListener('click', () => goTo(i, true));
+        dots.appendChild(dot);
+      });
+    };
+
+    const updateUI = () => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      const dotEls = dots.querySelectorAll('.focus-dot');
+      dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
+    };
+
+    const goTo = (i, userInitiated = false) => {
+      index = clampIndex(i);
+      updateUI();
+      if (userInitiated) restartAutoplay();
+    };
+
+    const next = (userInitiated = false) => goTo(index + 1, userInitiated);
+    const prev = (userInitiated = false) => goTo(index - 1, userInitiated);
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      autoplayId = window.setInterval(() => {
+        if (!isPaused) next(false);
+      }, AUTOPLAY_MS);
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayId) window.clearInterval(autoplayId);
+      autoplayId = null;
+    };
+
+    const restartAutoplay = () => {
+      startAutoplay();
+    };
+
+    prevBtn.addEventListener('click', () => prev(true));
+    nextBtn.addEventListener('click', () => next(true));
+
+    root.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+    root.addEventListener('mouseleave', () => {
+      isPaused = false;
+    });
+    root.addEventListener('focusin', () => {
+      isPaused = true;
+    });
+    root.addEventListener('focusout', () => {
+      isPaused = false;
+    });
+
+    // Keyboard support (only when the slider is focused)
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prev(true);
+      if (e.key === 'ArrowRight') next(true);
+    });
+
+    render();
+    goTo(0, false);
+    startAutoplay();
   }
   
   /* Testimonials slider */
@@ -383,6 +529,112 @@ document.addEventListener('DOMContentLoaded', function () {
   
     const messages = form.querySelectorAll('.error-message');
     messages.forEach((m) => m.remove());
+  }
+
+  /* Shared lightbox helper (campaigns + Current Focus carousel) */
+
+  function createLightboxController({ lightboxId, imageId, closeSelector }) {
+    const lightbox = document.getElementById(lightboxId);
+    const lightboxImage = document.getElementById(imageId);
+    const closeBtn = lightbox ? lightbox.querySelector(closeSelector) : null;
+
+    if (!lightbox || !lightboxImage || !closeBtn) return null;
+
+    const open = (src, alt) => {
+      if (!src) return;
+      lightboxImage.src = src;
+      lightboxImage.alt = alt || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const close = () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', close);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
+    });
+
+    return { open, close, lightbox };
+  }
+
+  /* Campaign images lightbox (campaigns.html) */
+
+  function setupCampaignImageLightbox() {
+    const images = document.querySelectorAll('.campaign-card .campaign-image');
+    if (!images.length) return;
+
+    const controller = createLightboxController({
+      lightboxId: 'campaign-lightbox',
+      imageId: 'campaign-lightbox-image',
+      closeSelector: '.lightbox-close',
+    });
+    if (!controller) return;
+
+    const getBgUrl = (el) => {
+      const bg = window.getComputedStyle(el).backgroundImage || '';
+      // background-image: url("...") OR none
+      const match = bg.match(/url\(["']?(.*?)["']?\)/i);
+      return match ? match[1] : '';
+    };
+
+    images.forEach((imgDiv) => {
+      imgDiv.setAttribute('role', 'button');
+      imgDiv.setAttribute('tabindex', '0');
+      imgDiv.setAttribute('aria-label', 'Open campaign image');
+
+      const handler = () => {
+        const src = getBgUrl(imgDiv);
+        const titleEl = imgDiv.closest('.campaign-card')?.querySelector('h3');
+        const alt = titleEl ? titleEl.textContent.trim() : 'Campaign image';
+        controller.open(src, alt);
+      };
+
+      imgDiv.addEventListener('click', handler);
+      imgDiv.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handler();
+        }
+      });
+    });
+  }
+
+  /* Current Focus carousel lightbox (index.html) */
+
+  function setupCurrentFocusLightbox() {
+    const root = document.querySelector('[data-focus-slider]');
+    if (!root) return;
+
+    const controller = createLightboxController({
+      lightboxId: 'campaign-lightbox',
+      imageId: 'campaign-lightbox-image',
+      closeSelector: '.lightbox-close',
+    });
+    if (!controller) return;
+
+    // Event delegation so it keeps working after slides are rendered dynamically.
+    root.addEventListener('click', (e) => {
+      const img = e.target && e.target.closest ? e.target.closest('.focus-slide img') : null;
+      if (!img) return;
+
+      // Slides are wrapped in <a href="campaigns.html">; prevent navigation when opening lightbox.
+      e.preventDefault();
+      e.stopPropagation();
+
+      const src = img.currentSrc || img.src || '';
+      const alt = img.alt || 'Campaign image';
+      controller.open(src, alt);
+    });
   }
   
   /* Gallery lightbox */

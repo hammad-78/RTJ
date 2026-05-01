@@ -212,9 +212,28 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(246, 248, 245, 0.92);
+    background-image: linear-gradient(135deg, rgba(10, 38, 22, 0.78), rgba(10, 38, 22, 0.55)), url("../images/rtj_banner.jpg");
+    /* Keep overlay full-bleed, but show the entire banner without cropping */
+    background-size: cover, contain;
+    background-position: center, center;
+    background-repeat: no-repeat;
+    background-color: rgba(10, 38, 22, 0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(224, 229, 221, 0.7);
+  }
+
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+  }
+
+  .site-header .container,
+  .site-header .header-container {
+    position: relative;
+    z-index: 1;
   }
   
   .header-container {
@@ -257,11 +276,11 @@
     font-weight: 600;
     letter-spacing: 0.02em;
     font-size: 1.1rem;
-    color: #122016;
+    color: #fffdf2;
   }
   
   .logo-text span {
-    color: var(--color-primary);
+    color: var(--color-accent);
   }
   
   /* Nav */
@@ -283,15 +302,15 @@
   
   .nav-links a {
     font-size: 0.92rem;
-    color: var(--color-muted);
+    color: rgba(255, 255, 255, 0.86);
     padding: 0.35rem 0.4rem;
     border-radius: 999px;
   }
   
   .nav-links a.active,
   .nav-links a:hover {
-    color: #122016;
-    background-color: rgba(15, 123, 72, 0.08);
+    color: #fffdf2;
+    background-color: rgba(0, 0, 0, 0.22);
   }
   
   .nav-donate-btn {
@@ -315,7 +334,7 @@
     width: 22px;
     height: 2px;
     border-radius: 999px;
-    background-color: #263022;
+    background-color: rgba(255, 255, 255, 0.9);
   }
   
   /* Hero (Home) */
@@ -422,6 +441,121 @@
   
   .hero-link {
     font-size: 0.88rem;
+  }
+
+  /* Current Focus slider (hero card) */
+
+  .focus-slider {
+    position: relative;
+    margin-top: 0.9rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #eef2e9;
+    border: 1px solid rgba(224, 229, 221, 0.9);
+  }
+
+  .focus-slider-viewport {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    min-height: 160px;
+  }
+
+  .focus-slider-track {
+    height: 100%;
+    display: flex;
+    transition: transform 420ms ease;
+    will-change: transform;
+  }
+
+  .focus-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .focus-slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .focus-slide img {
+    cursor: zoom-in;
+  }
+
+  .focus-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 38, 22, 0.05), rgba(10, 38, 22, 0.7));
+    pointer-events: none;
+  }
+
+  .focus-caption {
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    bottom: 0.75rem;
+    z-index: 2;
+    color: #fffdf2;
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.2;
+    text-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+
+  .focus-slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(246, 248, 245, 0.95);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a5545;
+    z-index: 3;
+  }
+
+  .focus-slider-nav.prev {
+    left: 0.6rem;
+  }
+
+  .focus-slider-nav.next {
+    right: 0.6rem;
+  }
+
+  .focus-slider-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.4rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    z-index: 3;
+    padding: 0 0.6rem;
+  }
+
+  .focus-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.55);
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+
+  .focus-dot.active {
+    background: rgba(255, 255, 255, 0.92);
+    transform: scale(1.25);
   }
   
   /* Sections */
@@ -1210,6 +1344,24 @@
   .lightbox.open {
     display: flex;
   }
+
+  .lightbox {
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    transform: scale(0.96);
+    transition: transform 220ms ease;
+  }
+
+  .lightbox.open .lightbox-content {
+    transform: scale(1);
+  }
   
   .lightbox-content {
     position: relative;
@@ -1245,6 +1397,30 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* Campaign lightbox uses its own image id */
+
+  #campaign-lightbox-image {
+    max-width: 100%;
+    max-height: var(--img-lightbox-max-h);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .campaign-image {
+    cursor: zoom-in;
+  }
+
+  .lightbox--campaign .lightbox-close {
+    padding: 0 0.75rem;
+    width: auto;
+    height: 32px;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
   
   /* Blog cards */
@@ -1526,7 +1702,7 @@
     .nav-links {
       position: fixed;
       inset: var(--header-height) 0 auto 0;
-      background: rgba(246, 248, 245, 0.98);
+      background: rgba(10, 38, 22, 0.92);
       flex-direction: column;
       align-items: flex-start;
       padding: 0.75rem 1.5rem 1rem;

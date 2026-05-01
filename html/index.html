@@ -5,7 +5,7 @@
   <title>Road To Jannat Welfare Foundation - Charity Organization</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Road To Jannat Welfare Foundation is a charity organization dedicated to supporting those in need through sustainable, transparent and impactful projects.">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/style.css?v=20260423">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
@@ -67,7 +67,16 @@
           </div>
           <div class="hero-highlight-card">
             <h2>Current Focus: Winter Relief</h2>
-            <p>Provide warm clothing, blankets and food packs to families facing harsh winter nights.</p>
+
+            <div class="focus-slider" data-focus-slider tabindex="0" aria-label="Active campaigns slider">
+              <div class="focus-slider-viewport">
+                <div class="focus-slider-track" aria-live="polite"></div>
+              </div>
+              <button class="focus-slider-nav prev" type="button" aria-label="Previous campaign">&#10094;</button>
+              <button class="focus-slider-nav next" type="button" aria-label="Next campaign">&#10095;</button>
+              <div class="focus-slider-dots" aria-label="Campaign navigation dots"></div>
+            </div>
+
             <div class="hero-highlight-stats">
               <div>
                 <span class="stat-label">Families Sponsored</span>
@@ -332,6 +341,14 @@
       </div>
     </footer>
 
+    <!-- Campaign image lightbox (reused for Current Focus carousel) -->
+    <div id="campaign-lightbox" class="lightbox lightbox--campaign" aria-hidden="true">
+      <div class="lightbox-content">
+        <button class="lightbox-close" type="button" aria-label="Close image">Back</button>
+        <img src="" alt="" id="campaign-lightbox-image">
+      </div>
+    </div>
+
     <!-- Floating map: office location -->
     <a
       href="https://www.google.com/maps/place/Road+To+Jannat+Welfare+Agency/@32.9242171,73.677933,17z/data=!3m1!4b1!4m6!3m5!1s0x391f91b734656f75:0x6d5219e8f81b3dd7!8m2!3d32.9242171!4d73.677933!16s%2Fg%2F11v4hwz2hg"
@@ -355,6 +372,6 @@
     </a>
   </div>
 
-  <script src="../js/script.js"></script>
+  <script src="../js/script.js?v=20260423"></script>
 </body>
 </html>
