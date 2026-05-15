@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Previous Projects – Road To Jannat Welfare Foundation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Browse completed projects by Road To Jannat Welfare Foundation — water wells, orphan care, food relief, shelter, and more.">
+  <link rel="stylesheet" href="../css/style.css?v=20260423">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Minimal extra styles for the photo-heavy gallery layout */
+    .projects-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .projects-photo-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      aspect-ratio: 4 / 3;
+      background: #e4e9df;
+      cursor: zoom-in;
+    }
+
+    .projects-photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .projects-photo-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .projects-photo-item .photo-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0.4rem 0.6rem;
+      background: linear-gradient(transparent, rgba(10,38,22,0.72));
+      color: #fffdf2;
+      font-size: 0.75rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .projects-photo-item:hover .photo-caption {
+      opacity: 1;
+    }
+
+    @media (max-width: 960px) {
+      .projects-photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .projects-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-wrapper">
+
+    <!-- Header / Navbar -->
+    <header class="site-header">
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <img src="../images/RoadToJannat_Logo.jpeg" alt="" class="logo-img" width="40" height="40">
+          <span class="logo-text">Road To Jannat <span>Welfare Foundation</span></span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="nav">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="campaigns.html">Campaigns</a></li>
+            <li><a href="projects.html" class="active">Previous</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <a href="donate.html" class="btn btn-small btn-gold nav-donate-btn">Donate Now</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- Page Hero -->
+      <section class="page-hero projects-hero">
+        <div class="container">
+          <h1>Previous Projects</h1>
+          <p>Alhamdulillah — a visual record of what your generosity made possible.</p>
+        </div>
+      </section>
+
+      <!-- Photo Grid -->
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <h2>Project Gallery</h2>
+            <p>Every image is a moment of impact — clean water delivered, children fed, families sheltered.</p>
+          </header>
+
+          <div class="projects-photo-grid">
+
+            <!--
+              ============================================================
+              HOW TO ADD YOUR IMAGES:
+
+              Copy and paste this block for each photo:
+
+              <div class="projects-photo-item">
+                <img src="../images/projects/YOUR-IMAGE.jpg" alt="Brief description" loading="lazy">
+                <span class="photo-caption">Caption (optional, shows on hover)</span>
+              </div>
+
+              - Put all images in the folder:  images/projects/
+              - Keep loading="lazy" on every image — it speeds up the page
+              - Alt text and captions are optional but recommended
+              ============================================================
+            -->
+
+            <!-- ADD YOUR IMAGES BELOW THIS LINE -->
+
+            <div class="projects-photo-item">
+              <img src="../images/projects/project-01.jpg" alt="" loading="lazy">
+              <span class="photo-caption">Project caption here</span>
+            </div>
+
+            <div class="projects-photo-item">
+              <img src="../images/projects/project-02.jpg" alt="" loading="lazy">
+              <span class="photo-caption">Project caption here</span>
+            </div>
+
+            <div class="projects-photo-item">
+              <img src="../images/projects/project-03.jpg" alt="" loading="lazy">
+              <span class="photo-caption">Project caption here</span>
+            </div>
+
+            <!-- ... keep adding blocks for all your images ... -->
+
+          </div><!-- /.projects-photo-grid -->
+
+          <div class="section-footer-link" style="margin-top:2rem;">
+            <a href="donate.html" class="btn btn-primary">Support Our Next Project</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-about">
+          <h3>Road To Jannat Welfare Foundation</h3>
+          <p>A non-profit initiative dedicated to channeling your generosity into projects that are transparent,
+            sustainable, and life-changing.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="campaigns.html">Campaigns</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
+            <li><a href="blog.html">Blog &amp; Updates</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p>Email: roadtojannatpk@gmail.com</p>
+          <p>Phone: +92 301 5802066</p>
+          <p class="footer-address">Bypass Road, Jhelum Cantt, Jhelum, Pakistan<br>
+            <a class="footer-maps-link"
+              href="https://www.google.com/maps/place/Road+To+Jannat+Welfare+Agency/@32.9242171,73.677933,17z"
+              target="_blank" rel="noopener noreferrer">Google Maps</a>
+          </p>
+        </div>
+        <div class="footer-newsletter">
+          <h4>Stay Connected</h4>
+          <p>Get occasional updates and impact stories.</p>
+          <div class="footer-social" aria-label="Follow us on social media">
+            <ul class="social-links">
+              <li>
+                <a class="social-link" href="https://youtube.com/@roadtojannat-pk?si=xM_tr5GY4pZ4siIZ" target="_blank"
+                  rel="noopener noreferrer" aria-label="Road To Jannat on YouTube">
+                  <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a class="social-link" href="https://www.facebook.com/roadtojannatpk" target="_blank"
+                  rel="noopener noreferrer" aria-label="Road To Jannat on Facebook">
+                  <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <form id="footer-newsletter-form">
+            <input type="email" name="newsletter-email" placeholder="Your email" aria-label="Newsletter email">
+            <button type="submit" class="btn btn-small btn-gold">Subscribe</button>
+          </form>
+          <p class="footer-note">We respect your privacy and do not spam.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> Road To Jannat Welfare Foundation. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Floating buttons -->
+    <a href="https://www.google.com/maps/place/Road+To+Jannat+Welfare+Agency/@32.9242171,73.677933,17z"
+      class="maps-float" target="_blank" rel="noopener noreferrer" aria-label="Open office location in Google Maps">
+      <svg class="maps-float-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+      </svg>
+    </a>
+
+    <a href="tel:+923015802066" class="call-float" aria-label="Call Road To Jannat Welfare Foundation">
+      <span>Call</span>
+    </a>
+
+    <a href="https://wa.me/923015802066" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <span>WhatsApp</span>
+    </a>
+
+  </div><!-- /.site-wrapper -->
+
+  <script src="../js/script.js?v=20260423"></script>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
